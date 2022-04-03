@@ -17,5 +17,15 @@ for entry in ecpa.entries:
             text=f"Update in {entry.title} \n Docket sheet: {entry.link} \n {entry.description.split(']')[0]}"
           )
         except SlackApiError as e:
+          assert e.response["ok"] is False
+          assert e.response["error"]
+          print(f"Got an error: {e.response['error']}")
+    else:
+        print("No new results")
+
+
+
+
+        #except SlackApiError as e:
           # You will get a SlackApiError if "ok" is False
-          assert e.response["error"]  # str like 'invalid_auth', 'channel_not_found'
+          #assert e.response["error"]  # str like 'invalid_auth', 'channel_not_found'
