@@ -3,7 +3,7 @@ name: Send Slack message with court updates
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '0 8 * * *'
+    - cron:  '0 10 * * *' # Updates daily at 6 a.m. ET
 
 jobs:
   courts_notify:
