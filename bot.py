@@ -2,7 +2,6 @@ import os
 from slack import WebClient
 from slack.errors import SlackApiError
 import feedparser
-import re
 
 slack_token = os.environ["SLACK_API_TOKEN"]
 client = WebClient(token=slack_token)
@@ -22,15 +21,16 @@ for court in courts:
     feed = feedparser.parse(court)
     # Parse the feed and return useful information in a Slack message
     for entry in feed.entries:
-        ed = entry.description.split(']')
-        ed = re.sub('[','', ed)
+        ed = entry.description.split(']')[0]
+        ed = ed.strip("[")
         if 'SCHOOL DISTRICT' in entry.title:
 
             try:
               response = client.chat_postMessage(
                 channel="slack-bots",
-                text=f"Update in {entry.title} \n Docket sheet: {entry.link} \n Description: {ed}"
+                text=f"Update in {entry.title}\n Docket sheet: {entry.link}\n Description: {ed}\n -------------------------------------"
               )
+
             except SlackApiError as e:
               assert e.response["ok"] is False
               assert e.response["error"]
