@@ -10,12 +10,11 @@ client = WebClient(token=slack_token)
 ecpa = feedparser.parse('https://ecf.paed.uscourts.gov/cgi-bin/rss_outside.pl')
 
 # Create a list of court RSS feeds
+# This bot currently uses the U.S. district courts in Pennsylvania. The feed for the middle district currently yields a blank page.
 courts = ['https://ecf.paed.uscourts.gov/cgi-bin/rss_outside.pl',
           'https://ecf.pamd.uscourts.gov/cgi-bin/rss_outside.pl',
           'https://ecf.pawd.uscourts.gov/cgi-bin/rss_outside.pl'
          ]
-#not sure about the middle district of PA feed - the one from Big Cases bot yields a blank page. I found a different set of rss feeds via gov.info, but those aren't daily updates.
-
 # Create a for loop that will iterate over each court's RSS feed
 for court in courts:
     feed = feedparser.parse(court)
@@ -24,7 +23,6 @@ for court in courts:
         ed = entry.description.split(']')[0]
         ed = ed.strip("[")
         if 'SCHOOL DISTRICT' in entry.title:
-
             try:
               response = client.chat_postMessage(
                 channel="slack-bots",
@@ -37,12 +35,3 @@ for court in courts:
               print(f"Got an error: {e.response['error']}")
         else:
             print("No new results")
-
-
-
-
-        #except SlackApiError as e:
-          # You will get a SlackApiError if "ok" is False
-          #assert e.response["error"]  # str like 'invalid_auth', 'channel_not_found'
-
-#
