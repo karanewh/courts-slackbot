@@ -1,4 +1,4 @@
-# ⚖️ Courts Slackbot: Get alerts about updates or new cases of interest
+# ⚖️ Courts Slackbot: Get alerts about new or updated cases of interest
 This is a code repository for a bot that sends Slack messages about new or updated court cases based on court RSS feeds and selected criteria.
 
 I created Courts Slackbot to solve a problem I experienced as a local education reporter in Pennsylvania: keeping track of lawsuits against school districts I covered. Sometimes I learned about lawsuits from advocacy groups or at board meetings, but daily checks of court dockets were not part of my routine. This bot automates that process.
