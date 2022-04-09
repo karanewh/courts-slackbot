@@ -1,0 +1,24 @@
+name: Send Slack message with court updates
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 8 * * *'
+
+jobs:
+  courts_notify:
+    runs-on: ubuntu-latest
+    steps:
+    # Step 1: Prepare the environment
+    - name: Check out this repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    # Step 2: Install requirements, so Python script can run
+    - name: Install requirements
+      run: python -m pip install slack slackclient feedparser 
+    # Step 3: Run script and send Slack message    
+    - name: court update message
+      env:
+        SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+      run: python bot.py 
