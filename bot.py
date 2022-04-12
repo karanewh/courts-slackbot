@@ -6,14 +6,11 @@ import feedparser
 slack_token = os.environ["SLACK_API_TOKEN"]
 client = WebClient(token=slack_token)
 
-# define a variable for Eastern District Court of Pennsylvania RSS feed
-ecpa = feedparser.parse('https://ecf.paed.uscourts.gov/cgi-bin/rss_outside.pl')
-
 # Create a list of court RSS feeds
 # This bot currently uses the U.S. district courts in Pennsylvania. The feed for the middle district currently yields a blank page.
-courts = ['https://ecf.paed.uscourts.gov/cgi-bin/rss_outside.pl',
-          'https://ecf.pamd.uscourts.gov/cgi-bin/rss_outside.pl',
-          'https://ecf.pawd.uscourts.gov/cgi-bin/rss_outside.pl'
+courts = ['https://ecf.paed.uscourts.gov/cgi-bin/rss_outside.pl', # Eastern district of PA
+          'https://ecf.pamd.uscourts.gov/cgi-bin/rss_outside.pl', # Middle district of PA
+          'https://ecf.pawd.uscourts.gov/cgi-bin/rss_outside.pl' # Western district of PA
          ]
 # Create a for loop that will iterate over each court's RSS feed
 for court in courts:
